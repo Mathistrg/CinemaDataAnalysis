@@ -181,3 +181,87 @@ def analyze_correlation():
     plt.legend()
     plt.grid()
     plt.show()
+
+
+
+# Analyse prédictive et recommandations stratégiques - Exercice 5
+
+# Fonction pour diviser les données des années 2021 et 2022
+def analyse_modele():
+    data = pd.read_csv("./data/cinemas.csv", sep=";", encoding="utf-8")
+
+    # Séparation des variables explicatives et cibles pour 2021
+    explicatives_2021 = data[['écrans', 'fauteuils', 'population de la commune']]
+    cible_2021 = data['entrées 2021']
+    print("Données 2021 - Variables explicatives :\n", explicatives_2021.head())
+    print("Données 2021 - Variable cible :\n", cible_2021.head())
+
+    # Séparation des variables explicatives et cibles pour 2022
+    explicatives_2022 = data[['écrans', 'fauteuils', 'population de la commune']]
+    cible_2022 = data['entrées 2022']
+    print("Données 2022 - Variables explicatives :\n", explicatives_2022.head())
+    print("Données 2022 - Variable cible :\n", cible_2022.head())
+
+    # Jeu d'entraînement et de test
+    X = explicatives_2022.values
+    Y = cible_2022.values
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+
+    # Modèle de régression linéaire
+    modele = LinearRegression()
+    modele.fit(X_train, Y_train)
+
+    print("Coefficients du modèle :", modele.coef_)
+    print("Ordonnée à l'origine :", modele.intercept_)
+
+    # Prédictions et évaluation
+    Y_pred = modele.predict(X_test)
+    evaluation = pd.DataFrame({'Réel': Y_test, 'Prédit': Y_pred})
+    print("Comparaison des valeurs réelles et prédites :\n", evaluation)
+
+    # Indicateurs de performance
+    print("Erreur absolue moyenne (MAE) :", mean_absolute_error(Y_test, Y_pred))
+    print("Erreur quadratique moyenne (MSE) :", mean_squared_error(Y_test, Y_pred))
+    print("Racine de l'erreur quadratique moyenne (RMSE) :", np.sqrt(mean_squared_error(Y_test, Y_pred)))
+    print("Coefficient de détermination (R2) :", r2_score(Y_test, Y_pred))
+
+
+# Recommandations stratégiques basées sur le modèle - Exercice 5
+def recommandations():
+    def prevoir_entrees(ecrans, fauteuils):
+        population = 20000  # population fixe pour la commune
+        intercept = -47323.89
+        result = (41482.68 * ecrans) + (30.83 * fauteuils) + (-0.19 * population) + intercept
+        return result
+
+    print("Prévision pour une commune de 20,000 habitants avec différents scénarios :")
+    print("2 écrans, 120 fauteuils :", prevoir_entrees(2, 120))
+    print("3 écrans, 120 fauteuils :", prevoir_entrees(3, 120))
+    print("2 écrans, 170 fauteuils :", prevoir_entrees(2, 170))
+
+
+# Programme principal
+if __name__ == "__main__":
+    print("Bienvenue dans l'analyse des données de CINEMA")
+    print("Sélectionnez un exercice parmi les options suivantes :")
+    print("""
+        1 : Nettoyage des données
+        2 : Exploration des données
+        3 : Corrélation infrastructures/fréquentation
+        4 : Modèle prédictif des entrées annuelles
+        5 : Recommandations stratégiques
+    """)
+
+    choix = int(input("Entrez le numéro de l'exercice (1 à 5) : "))
+    if choix == 1:
+        exercice1()
+    elif choix == 2:
+        analyze_data()
+    elif choix == 3:
+        analyse_modele()
+    elif choix == 4:
+        analyse_modele()
+    elif choix == 5:
+        recommandations()
+    else:
+        print("Option non valide, merci de réessayer.")
