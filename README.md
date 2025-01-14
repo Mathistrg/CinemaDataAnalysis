@@ -48,10 +48,6 @@ Les données de l'année 2022 ont été utilisées pour analyser l'influence des
 
 ---
 
-#### Visualisation :
-
-Deux nuages de points accompagnés de régressions linéaires ont été créés pour représenter les relations suivantes :  
-
 1. **Nombre d'écrans et entrées annuelles :**
    - Montre une tendance positive claire.
 

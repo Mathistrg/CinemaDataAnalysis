@@ -61,7 +61,7 @@ def exercice1():
 
 def analyze_data():
     # Chargement des données
-    cinemas_data = pd.read_csv("./data/cinemas.csv", delimiter=";", encoding="utf-8")
+    cinemas_data = pd.read_csv(".\csv\salle_de_cinema_ile-de-france.csv", delimiter=";", encoding="utf-8")
 
     # Calcul des totaux des entrées et des fauteuils par commune
     aggregated_data = cinemas_data.groupby('commune')[['entrées 2022', 'fauteuils']].sum()
@@ -115,7 +115,7 @@ def analyze_data():
 
 def analyze_correlation():
     # Lecture des données
-    cinema_data = pd.read_csv("./data/cinemas.csv", delimiter=";", encoding="utf-8")
+    cinema_data = pd.read_csv(".\csv\salle_de_cinema_ile-de-france.csv", delimiter=";", encoding="utf-8")
 
     # Corrélation entre le nombre d'écrans et les entrées de 2022
     screens = cinema_data['écrans'].tolist()
@@ -188,7 +188,7 @@ def analyze_correlation():
 
 # Fonction pour diviser les données des années 2021 et 2022
 def analyse_modele():
-    data = pd.read_csv("./data/cinemas.csv", sep=";", encoding="utf-8")
+    data = pd.read_csv(".\csv\salle_de_cinema_ile-de-france.csv", sep=";", encoding="utf-8")
 
     # Séparation des variables explicatives et cibles pour 2021
     explicatives_2021 = data[['écrans', 'fauteuils', 'population de la commune']]
