@@ -56,3 +56,56 @@ def exercice1():
     print("Colonnes principales du fichier cinemas.csv:")
     print(df_cinemas[cinemas_filter])
 
+
+# Analyse des données - Exercice 2
+
+def analyze_data():
+    # Chargement des données
+    cinemas_data = pd.read_csv("./data/cinemas.csv", delimiter=";", encoding="utf-8")
+
+    # Calcul des totaux des entrées et des fauteuils par commune
+    aggregated_data = cinemas_data.groupby('commune')[['entrées 2022', 'fauteuils']].sum()
+
+    # Calcul des entrées moyennes par fauteuil
+    avg_entries_per_seat = aggregated_data['entrées 2022'] / aggregated_data['fauteuils']
+
+    print("Analyse : Moyenne des entrées par fauteuil pour chaque région (2022)")
+    print(avg_entries_per_seat)
+
+    # Top 3 des communes avec le plus d'entrées moyennes par fauteuil
+    top_3_communes = avg_entries_per_seat.sort_values(ascending=False).head(3)
+    print("\nTop 3 des communes avec le plus d'entrées moyennes par fauteuil :")
+    print(top_3_communes)
+
+    # Bottom 3 des communes avec le moins d'entrées moyennes par fauteuil
+    bottom_3_communes = avg_entries_per_seat.sort_values().head(3)
+    print("\nBottom 3 des communes avec le moins d'entrées moyennes par fauteuil :")
+    print(bottom_3_communes)
+
+    # Diagramme des 10 communes avec le plus d'entrées moyennes par fauteuil
+    top_10_communes = avg_entries_per_seat.sort_values(ascending=False).head(10).reset_index()
+    top_10_communes.columns = ['commune', 'avg_entries_per_seat']
+
+    top_10_communes.set_index('commune')['avg_entries_per_seat'].plot(
+        kind='bar', figsize=(14, 6), color='skyblue'
+    )
+    plt.title("Top 10 : Moyenne des entrées par fauteuil (2022)")
+    plt.ylabel('Entrées moyennes par fauteuil')
+    plt.xlabel('Communes')
+    plt.xticks(rotation=45)
+    plt.grid(axis='y')
+    plt.show()
+
+    # Diagramme des 10 communes avec le moins d'entrées moyennes par fauteuil
+    bottom_10_communes = avg_entries_per_seat.sort_values().head(10).reset_index()
+    bottom_10_communes.columns = ['commune', 'avg_entries_per_seat']
+
+    bottom_10_communes.set_index('commune')['avg_entries_per_seat'].plot(
+        kind='bar', figsize=(14, 6), color='salmon'
+    )
+    plt.title("Bottom 10 : Moyenne des entrées par fauteuil (2022)")
+    plt.ylabel('Entrées moyennes par fauteuil')
+    plt.xlabel('Communes')
+    plt.xticks(rotation=45)
+    plt.grid(axis='y')
+    plt.show()
