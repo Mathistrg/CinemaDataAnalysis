@@ -1,3 +1,34 @@
+# CinemaDataAnalysis
+
+## Lancement du projet :
+
+Avant d'exécuter le code présent dans le fichier `main.py`, suivez les étapes suivantes :
+
+### 1. Cloner le répertoire :
+
+Clonez le repository avec la commande suivante :
+
+```bash
+git clone https://github.com/Mathistrg/CinemaDataAnalysis.git
+
+
+cd CinemaDataAnalysis
+
+
+pip install pandas numpy matplotlib scikit-learn
+
+
+python3 -m venv venv
+
+Windows
+venv\Scripts\Activate.ps1
+
+MAC/linux
+source ./venv/bin/activate
+```
+
+
+
 ### Exercice 3 : Analyse de la relation entre infrastructures et fréquentation
 
 **Focus sur 2022 :**  

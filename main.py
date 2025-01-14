@@ -11,7 +11,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 def exercice1():  
 # Recherche des valeurs manquantes ou incohérentes
-    df_cinemas = pd.read_csv("./data/cinemas.csv", sep=";", encoding="utf-8")
+    df_cinemas = pd.read_csv(".\csv\salle_de_cinema_ile-de-france.csv", sep=";", encoding="utf-8")
 
     print("Valeurs manquantes ou incohérentes selon les différents champs de cinemas.csv:")
     print(df_cinemas.isnull().sum())
